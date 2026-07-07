@@ -4,7 +4,13 @@ export
 export PROJECT_ROOT=$(shell pwd)
 
 env-up:
-	@docker compose up -d
+	@docker compose up frontend backend db -d
 
 env-down:
-	@docker compose down
+	@docker compose down frontend backend db
+
+env-port-forward:
+	@docker compose up -d port-forwarder
+
+env-port-close:
+	@docker compose down port-forwarder

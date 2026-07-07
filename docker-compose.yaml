@@ -53,6 +53,17 @@ services:
       - drf-net
     restart: unless-stopped
 
+  port-forwarder:
+    image: alpine/socat:1.8.0.3
+    container_name: postgres-port-forwarder
+    command: tcp-listen:5432,fork,reuseaddr tcp:db:5432
+    ports:
+      - "127.0.0.1:5432:5432"
+    depends_on:
+      - db
+    networks:
+      - drf-net
+
 networks:
   drf-net:
     driver: bridge
