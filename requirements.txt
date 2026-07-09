@@ -13,3 +13,5 @@ sqlparse==0.5.5
 types-PyYAML==6.0.12.20260518
 typing_extensions==4.16.0
 tzdata==2026.2
+mutagen==1.47.0
+pillow==12.3.0
