@@ -6,6 +6,10 @@ export PROJECT_ROOT=$(shell pwd)
 env-up:
 	@docker compose up frontend backend db -d
 
+env-up-without-cache:
+	@docker compose build --no-cache
+	make env-up
+
 env-down:
 	@docker compose down frontend backend db
 
