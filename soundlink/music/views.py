@@ -9,7 +9,6 @@ from .serializers import SongSerializer
 from .utils import extract_audio_metadata, delete_audio_file
 
 
-# Create your views here.
 class SongUploadView(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
