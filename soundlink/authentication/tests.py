@@ -25,3 +25,18 @@ class JWTAuthTest(TestCase):
             content_type="application/json",
         )
         return response.json()
+
+    def test_login(self):
+        response = self.client.post(
+            "/api/login/", json.dumps(
+                {
+                    "username": "testuser",
+                    "password": "test123"
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        self.assertIn("access", data)
+        self.assertIn("refresh", data)
