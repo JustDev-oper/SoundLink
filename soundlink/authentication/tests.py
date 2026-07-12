@@ -82,3 +82,18 @@ class JWTAuthTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         data = response.json()
         self.assertIn("error", data)
+
+    def test_get_token_refresh(self):
+        tokens = self._get_tokens()
+        response = self.client.post(
+            "/api/refresh/", json.dumps(
+                {
+                    "refresh": tokens["refresh"],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        self.assertIn("access", data)
+        self.assertIn("refresh", data)
