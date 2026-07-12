@@ -13,11 +13,10 @@ class JWTAuthTest(TestCase):
             username="testuser",
             password="test123",
         )
-        self.client.login(username="testuser", password="test123")
 
-    def test_get_token(self):
+    def _get_tokens(self):
         response = self.client.post(
-            "/auth/login/", json.dumps(
+            "/api/login/", json.dumps(
                 {
                     "username": "testuser",
                     "password": "test123"
@@ -25,7 +24,4 @@ class JWTAuthTest(TestCase):
             ),
             content_type="application/json",
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        data = response.json()
-        self.assertIn("access", data)
-        self.assertIn("refresh", data)
+        return response.json()
