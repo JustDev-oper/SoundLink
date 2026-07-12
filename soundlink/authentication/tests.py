@@ -55,3 +55,30 @@ class JWTAuthTest(TestCase):
         data = response.json()
         self.assertIn("access", data)
         self.assertIn("refresh", data)
+
+    def test_logout_with_refresh_token(self):
+        tokens = self._get_tokens()
+        response = self.client.post(
+            "/api/logout/", json.dumps(
+                {
+                    "refresh": tokens["refresh"],
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        self.assertIn("success", data)
+
+    def test_logout_with_invalid_refresh_token(self):
+        response = self.client.post(
+            "/api/logout/", json.dumps(
+                {
+                    "refresh": "hfhdhhdh13",
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        data = response.json()
+        self.assertIn("error", data)
