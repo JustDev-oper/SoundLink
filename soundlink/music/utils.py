@@ -6,6 +6,10 @@ from mutagen.mp3 import MP3
 from mutagen.mp4 import MP4
 
 
+def is_file_size_allowed(file_path) -> bool:
+    return 20 <= os.path.getsize(file_path) <= 20 * 1024 * 1024
+
+
 def extract_audio_metadata(file_path):
     ext = os.path.splitext(file_path)[1].lower()
     metadata = {
