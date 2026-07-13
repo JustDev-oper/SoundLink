@@ -15,7 +15,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - drf-net
+      - net
 
   backend:
     build:
@@ -37,7 +37,7 @@ services:
       db:
         condition: service_healthy
     networks:
-      - drf-net
+      - net
     restart: unless-stopped
 
   frontend:
@@ -50,7 +50,7 @@ services:
     ports:
       - "5173:5173"
     networks:
-      - drf-net
+      - net
     restart: unless-stopped
 
   port-forwarder:
@@ -62,8 +62,8 @@ services:
     depends_on:
       - db
     networks:
-      - drf-net
+      - net
 
 networks:
-  drf-net:
+  net:
     driver: bridge
