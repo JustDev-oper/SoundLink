@@ -6,8 +6,8 @@ from mutagen.mp3 import MP3
 from mutagen.mp4 import MP4
 
 
-def is_file_size_allowed(file_path) -> bool:
-    return os.path.getsize(file_path) <= 20 * 1024 * 1024
+def is_file_size_allowed(uploaded_file) -> bool:
+    return uploaded_file.size <= 20 * 1024 * 1024
 
 
 def extract_audio_metadata(file_path) -> dict[str, None]:
@@ -52,9 +52,7 @@ def delete_audio_file(file_path) -> bool:
         return False
 
 
-def is_allowed_file_type(file_path) -> bool:
-    ext = os.path.splitext(file_path)[1].lower()
+def is_allowed_file_type(uploaded_file) -> bool:
+    ext = os.path.splitext(uploaded_file.name)[1].lstrip('.').lower()
     allowed_types = ["mp3", "flac", "wav"]
-    if ext not in allowed_types:
-        return False
-    return True
+    return ext in allowed_types
