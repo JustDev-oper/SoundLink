@@ -1,4 +1,3 @@
-import os
 import shutil
 import tempfile
 
@@ -10,8 +9,6 @@ from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
-
-TEST_MP3 = os.path.join(os.path.dirname(__file__), '..', '..', 'songs', 'test.mp3')
 
 
 class SongTestCase(TestCase):
@@ -39,8 +36,7 @@ class SongTestCase(TestCase):
         return self.client.post("/api/songs/upload/", data)
 
     def test_upload_mp3_song(self):
-        with open(TEST_MP3, "rb") as f:
-            uploaded = SimpleUploadedFile("test.mp3", f.read(), content_type="audio/mpeg")
+        uploaded = SimpleUploadedFile("test.mp3", b'\xff\xfb\x90\x00' + b'\x00' * 413, content_type="audio/mpeg")
 
         response = self.client.post("/api/songs/upload/", {
             "file": uploaded,
