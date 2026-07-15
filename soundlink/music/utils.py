@@ -7,7 +7,7 @@ from mutagen.mp4 import MP4
 
 
 def is_file_size_allowed(file_path) -> bool:
-    return 20 <= os.path.getsize(file_path) <= 20 * 1024 * 1024
+    return os.path.getsize(file_path) <= 20 * 1024 * 1024
 
 
 def extract_audio_metadata(file_path) -> dict[str, None]:
