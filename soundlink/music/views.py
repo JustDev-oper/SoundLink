@@ -44,8 +44,8 @@ class SongListView(APIView):
 class SongDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, song_id):
-        song = Song.objects.get(id=song_id)
+    def get(self, request, pk):
+        song = Song.objects.get(id=pk)
         serializer = SongSerializer(song)
         return Response(serializer.data)
 
